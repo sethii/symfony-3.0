@@ -1,0 +1,19 @@
+language: php
+
+php:
+    - 7.0
+
+services:
+    - mysql
+
+archive: true
+
+before_script:
+    - mysql -e 'create database mydatabase;'
+    - mkdir -p shippable/codecoverage
+    - mkdir -p shippable/testresults
+    - composer self-update -n
+    - composer install --prefer-dist -n
+
+script:
+    - ./bin/console cache:clear --env=prod --no-debug
